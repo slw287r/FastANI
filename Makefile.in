@@ -10,12 +10,16 @@ else
 	CFLAGS += -include src/common/memcpyLink.h
 endif
 
-SOURCES=src/cgi/core_genome_identity.cpp
+SOURCE1=src/cgi/core_genome_identity.cpp
+SOURCE2=src/cgi_amino/amino_acid_identity.cpp
 
-all : fastANI
+all : fastANI fastAAI
 
 fastANI :  
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(SOURCES) -o fastANI @mathlib@ -lstdc++ -lz -lm  
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(SOURCE1) -o fastANI @mathlib@ -lstdc++ -lz -lm  
+
+fastAAI :  
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(SOURCE2) -o fastAAI @mathlib@ -lstdc++ -lz -lm  
 
 install : fastANI
 	mkdir -p @prefix@/bin/
@@ -23,3 +27,4 @@ install : fastANI
 
 clean :
 	-rm -f fastANI
+	-rm -f fastAAI
