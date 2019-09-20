@@ -21,6 +21,8 @@ namespace cgi
     skch::offset_t refStartPos;         //start position of the mapping on reference
     skch::offset_t queryStartPos;       //start position of the query for this mapping
     skch::offset_t mapRefPosBin;        //bin of mapped region on the reference sequence
+    int sketchSize;                     //sketch size
+    int conservedSketches;              //count of conserved sketches
     float nucIdentity;                  //calculated identity
   };
 

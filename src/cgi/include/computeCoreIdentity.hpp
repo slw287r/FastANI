@@ -55,7 +55,7 @@ namespace cgi
       uint64_t queryFileNo,
       std::string &fileName)
   {
-    std::ofstream outstrm(fileName + ".visual", std::ios::app);
+    std::ofstream outstrm(fileName + ".mappings");
 
     //Shift offsets for converting from local (to contig) to global (to genome)
     std::vector <skch::offset_t> queryOffsetAdder (mapper.metadata.size());
@@ -81,18 +81,13 @@ namespace cgi
     //Format the output to blast tabular way (outfmt 6)
     for(auto &e : mappings_2way)
     {
-      outstrm << parameters.querySequences[queryFileNo]
-        << "\t" << parameters.refSequences[e.genomeId]
-        << "\t" << e.nucIdentity
-        << "\t" << "NA"
-        << "\t" << "NA"
-        << "\t" << "NA"
-        << "\t" << e.queryStartPos                                    + queryOffsetAdder[e.querySeqId] 
+      outstrm   << e.queryStartPos                                    + queryOffsetAdder[e.querySeqId] 
         << "\t" << e.queryStartPos + parameters.minReadLength - 1     + queryOffsetAdder[e.querySeqId]
         << "\t" << e.refStartPos                                      + refOffsetAdder[e.refSequenceId]
         << "\t" << e.refStartPos + parameters.minReadLength - 1       + refOffsetAdder[e.refSequenceId]
-        << "\t" << "NA"
-        << "\t" << "NA"
+        << "\t" << e.nucIdentity
+        << "\t" << e.sketchSize
+        << "\t" << e.conservedSketches
         << "\n";
     }
   }
@@ -134,6 +129,8 @@ namespace cgi
           e.refStartPos,
           e.queryStartPos,
           e.refStartPos/(parameters.minReadLength - 20),
+          e.sketchSize,
+          e.conservedSketches,
           e.nucIdentity
           });
     }

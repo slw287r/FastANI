@@ -52,6 +52,9 @@ $ fastANI -q genome1.fa --rl genome_list.txt -o output.txt");
     cmd.defineOption("kmer", "kmer size <= 16 [default : 16]", ArgvParser::OptionRequiresValue);
     cmd.defineOptionAlternative("kmer","k");
 
+    cmd.defineOption("window", "window size for minimizer selection, lower window size implies denser sketch [default : auto-computed]", ArgvParser::OptionRequiresValue);
+    cmd.defineOptionAlternative("window","w");
+
     cmd.defineOption("threads", "thread count for parallel execution [default : 1]", ArgvParser::OptionRequiresValue);
     cmd.defineOptionAlternative("threads","t");
 
@@ -208,10 +211,10 @@ $ fastANI -q genome1.fa --rl genome_list.txt -o output.txt");
     }
 
     //Size of reference
-    //parameters.referenceSize = skch::CommonFunc::getReferenceSize(parameters.refSequences); 
+    parameters.referenceSize = skch::CommonFunc::getReferenceSize(parameters.refSequences); 
 
     //fix reference length to a typical bacterial genome length
-    parameters.referenceSize = 5000000;
+    //parameters.referenceSize = 5000000;
     str.clear();
 
     //Parse query files
@@ -312,10 +315,19 @@ $ fastANI -q genome1.fa --rl genome_list.txt -o output.txt");
      */
 
     //Compute optimal window size
-    parameters.windowSize = skch::Stat::recommendedWindowSize(parameters.p_value,
-        parameters.kmerSize, parameters.alphabetSize,
-        parameters.percentageIdentity,
-        parameters.minReadLength, parameters.referenceSize);
+    if(cmd.foundOption("window"))
+    {
+      str << cmd.optionValue("window");
+      str >> parameters.windowSize;
+      str.clear();
+    }
+    else
+    {
+      parameters.windowSize = skch::Stat::recommendedWindowSize(parameters.p_value,
+          parameters.kmerSize, parameters.alphabetSize,
+          parameters.percentageIdentity,
+          parameters.minReadLength, parameters.referenceSize);
+    }
 
     str << cmd.optionValue("output");
     str >> parameters.outFileName;
