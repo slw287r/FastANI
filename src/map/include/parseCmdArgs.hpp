@@ -62,7 +62,7 @@ $ fastANI -q genome1.fa --rl genome_list.txt -o output.txt");
 
     cmd.defineOption("minFrag", "minimum matched fragments for trusting ANI [default : 50]", ArgvParser::OptionRequiresValue);
 
-    cmd.defineOption("visualize", "output mappings for visualization, can be enabled for single genome to single genome comparison only. Output format: query start/end offsets, ref start/end offsets, identity, sketch union, sketch intersection [disabled by default]");
+    cmd.defineOption("visualize", "output mappings for visualization, can be enabled for single genome to single genome comparison only. Output format: query start/end offsets, ref start/end offsets, identity, sketch union, sketch intersection");
 
     cmd.defineOption("matrix", "also output ANI values as lower triangular matrix (format inspired from phylip). If enabled, you should expect an output file with .matrix extension [disabled by default]");
 
