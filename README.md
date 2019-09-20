@@ -84,7 +84,7 @@ Above output implies that the ANI estimate between *S. flexneri* and *E. coli* g
 
 FastANI supports visualization of the reciprocal mappings computed between two genomes. 
 Getting this visualization requires a one to one comparison using FastANI as discussed above, except an additional flag `--visualize` should be provided. 
-This flag forces FastANI to output a mapping file (with `.visual` extension) that contains information of all the reciprocal mappings. 
+This flag forces FastANI to output a mapping file (with `.mappings` extension) that contains information of all the reciprocal mappings. 
 Finally, an [R script](scripts) is provided in the repository which uses [genoPlotR](https://cran.r-project.org/web/packages/genoPlotR/index.html) package to plot these mappings. 
 Here we show an example run using two genomes: *Bartonella quintana* ([GenBank: CP003784.1](https://www.ncbi.nlm.nih.gov/nuccore/CP003784.1)) and *Bartonella henselae* ([NCBI Reference Sequence: NC_005956.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_005956.1)).
 
