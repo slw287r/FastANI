@@ -49,7 +49,7 @@ namespace skch
       const skch::Parameters &param;
 
       //Ignore top % most frequent minimizers while lookups
-      const float percentageThreshold = 0.0;
+      const float percentageThreshold = 0.02;
 
       //Minimizers that occur this or more times will be ignored (computed based on percentageThreshold)
       int freqThreshold = std::numeric_limits<int>::max();
@@ -134,10 +134,8 @@ namespace skch
 #endif
 
           //Open the file using kseq
-          FILE *file = fopen(fileName.c_str(), "r");
-          gzFile fp = gzdopen(fileno(file), "r");
+          gzFile fp = gzopen(fileName.c_str(), "r");
           kseq_t *seq = kseq_init(fp);
-
 
           //size of sequence
           offset_t len;
@@ -166,7 +164,6 @@ namespace skch
 
           kseq_destroy(seq);  
           gzclose(fp); //close the file handler 
-          fclose(file);
         }
 
         if ( omp_get_thread_num() == 0)
